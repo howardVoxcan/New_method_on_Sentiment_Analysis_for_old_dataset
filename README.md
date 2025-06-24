@@ -125,7 +125,6 @@ This project was developed by:
 * **Tran Cong Hien**
 * **Phan Vo My Huyen**
 * **Doan Minh Tuan**
-  Faculty of Information and Computer Engineering, UIT - VNU HCM
 
 ---
 
