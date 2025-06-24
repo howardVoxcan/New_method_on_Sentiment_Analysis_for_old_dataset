@@ -1,74 +1,134 @@
-# New_method_on_Sentiment_Analysis_for_old_dataset
+###Vietnamese Social Media Text Classification
 
-This project focuses on classifying emotions in Vietnamese texts collected from social media using a hybrid approach that combines machine learning, deep learning, transformer-based models, and large language models (LLMs). Additionally, we enhance the system by integrating the VnEmoLex emotion lexicon for better semantic understanding.
+This repository presents a comprehensive system for **Vietnamese emotion classification** from social media text. We leverage traditional machine learning (ML), deep learning (DL), transformer-based models, and large language models (LLMs) with integration of **VnEmoLex** – an emotion lexicon for Vietnamese.
 
-🎯 Project Objectives
-To develop a robust sentiment/emotion classification system tailored for Vietnamese social media data.
+---
 
-To compare the effectiveness of traditional machine learning, deep learning, and LLMs on real-world datasets.
+## 🎯 Project Objectives
 
-To utilize VnEmoLex – a Vietnamese emotion lexicon – to improve emotion recognition accuracy.
+- Build a robust pipeline for sentiment and emotion analysis on Vietnamese user-generated content (UGC)
+- Compare models across three domains: social media (VSMEC), student feedback (VSFC), and hate speech detection (ViCTSD)
+- Incorporate VnEmoLex into the learning process to improve accuracy
 
-📌 Key Features
-Preprocessing pipeline: Includes emoji normalization, teencode expansion, spelling correction, and abbreviation mapping.
+---
 
-Emotion lexicon integration: VnEmoLex is used to extract emotion vectors from raw text and fused with deep learning features.
+## 📁 Folder Structure
 
-Multi-model comparison:
+```
 
-Traditional ML: SVM, Logistic Regression
+.
+├── Preprocessing material/                # Emoji, teencode, stopwords, spelling correction resources
+│   ├── emoji2word.xlsx
+│   ├── vietnamese-emoticon.csv
+│   ├── vietnamese-misspell.csv
+│   ├── vietnamese-stopwords\*.txt
+│   └── vietnamese-teencode.txt
 
-Deep Learning: Text-CNN, BiGRU
+├── VSFC/                                 # Student feedback classification
+│   ├── Baseline/
+│   │   ├── svm\_lg\_tune.ipynb             # SVM & Logistic Regression
+│   │   ├── deep\_vsfc\_clean.ipynb         # TextCNN & BiGRU
+│   │   ├── phobert\_vsfc\_clean.ipynb      # PhoBERT fine-tuning
+│   │   ├── prompt\_vsfc.ipynb             # LLM (Gemini) evaluation
+│   │   └── 5\_model\_vsfc\_clean.ipynb      # Summary of all 5 approaches
+│   ├── Dataset/
+│   │   ├── df\_train\_clean.csv, ...
+│   │   └── VnEmoLex.xlsx
+│   └── Preprocessing/
+│       └── pre\_paper.ipynb
 
-Transformer: PhoBERT
+├── VSMEC/                                # Social media sentiment classification
+│   ├── Baseline/
+│   │   ├── svm\_lg\_tune.ipynb
+│   │   ├── bi\_gru\_emolex.ipynb
+│   │   ├── prompt\_vsmec.ipynb
+│   │   └── text\_paper\*.ipynb             # Emotion vector experiments
+│   ├── Dataset/
+│   │   ├── df\_train\_clean.csv, ...
+│   │   └── VnEmoLex.xlsx
+│   └── Preprocessing/
+│       └── test.ipynb
 
-LLM: Gemini-2.0 Flash (zero-shot & few-shot prompting)
+├── ViCTSD/                               # Hate speech detection
+│   ├── Baseline/
+│   │   ├── svm\_lg\_tune.ipynb
+│   │   ├── prompt\_vstsd\_clean.ipynb
+│   │   ├── phobert\_vctsd\_clean.ipynb
+│   │   └── bi\_vnemolex.ipynb
+│   ├── Dataset/
+│   │   ├── df\_train\_clean.csv, ...
+│   │   └── VnEmoLex.xlsx
+│   └── Preprocessing/
+│       └── Copy of paper\_pre.ipynb
 
-Benchmark Datasets:
+├── Slide thuyết trình.pptx               # Final presentation slide (in Vietnamese)
+├── README.md                             # You are here
+└── Vietnamese social media text classification.pdf  # Final report
 
-UIT-VSMEC (Emotion classification from social media)
+````
 
-UIT-VSFC (Student feedback sentiment)
+---
 
-UIT-ViCTSD (Toxic vs. clean speech detection)
+## 🧠 Method Highlights
 
-🧠 Methodology Overview
-Data Preprocessing
+- **Text Preprocessing**: emoji normalization, teencode conversion, misspelling correction, stopword filtering.
+- **Model Pipeline**:
+  - ML: SVM, Logistic Regression
+  - DL: TextCNN, BiGRU (+ VnEmoLex vector)
+  - Transformer: PhoBERT
+  - LLM: Gemini 2.0 Flash (zero-shot & few-shot)
+- **Emotion Feature Integration**: Use VnEmoLex to convert text into 8-dimensional vectors (one per emotion).
+- **Datasets**:
+  - `VSMEC`: 7 emotion classes from social media
+  - `VSFC`: Student feedback with 3 polarities
+  - `ViCTSD`: Toxic speech detection (Clean, Offensive, Hate)
 
-Normalize emojis, teencode, and common spelling errors
+---
 
-Convert text into emotion-aware features using VnEmoLex
+## 📊 Experimental Results
 
-Feature Extraction
+| Model Type | Best Accuracy |
+|------------|---------------|
+| SVM        | 89.2% (ViCTSD)|
+| BiGRU + EmoLex | 90.2% (VSFC) |
+| PhoBERT    | 93.4% (VSFC)  |
+| Gemini Few-shot | 93% (VSFC) |
 
-Combine BoW / TF-IDF with emotion vectors
+---
 
-Use tokenized input for PhoBERT and Gemini models
+## 📎 Demo
 
-Model Training & Evaluation
+🔗 [Demo video using Django] (https://drive.google.com/drive/u/0/folders/1zIfNzn-w4r5RVcDAjDffU0qIgK9dvJ1j)
 
-Train and evaluate models on each dataset
+---
 
-Use accuracy and macro F1-score as performance metrics
+## 🛠 Requirements
 
-📊 Results Highlights
-PhoBERT outperformed traditional and deep learning models on most tasks.
+- Python 3.8+
+- Transformers (for PhoBERT)
+- PyTorch / Tensorflow
+- Pandas, Numpy, Scikit-learn
+- Openpyxl (for `.xlsx` preprocessing files)
 
-Few-shot prompting with Gemini achieved competitive performance without retraining.
+```bash
+pip install -r requirements.txt
+````
 
-VnEmoLex significantly boosted model accuracy, especially in deep learning setups.
+---
 
-🔬 Limitations
-Sarcastic or ambiguous sentences still pose challenges.
+## 👨‍💻 Authors
 
-VnEmoLex lacks slang/teencode coverage, which affects social media understanding.
+This project was developed by:
 
-LLM token limit issues may affect few-shot performance with large prompts.
+* **Vo Quang Nhat Hoang**
+* **Do Thanh Dat**
+* **Tran Cong Hien**
+* **Phan Vo My Huyen**
+* **Doan Minh Tuan**
+  Faculty of Information and Computer Engineering, UIT - VNU HCM
 
-🔮 Future Work
-Expand and update VnEmoLex with slang and emoji context.
+---
 
-Fine-tune LLMs like GPT or LLaMA specifically for Vietnamese tasks.
+## 📌 License
 
-Explore POS tagging and dependency parsing for richer contextual embeddings.
-
+For academic or educational purposes only.
