@@ -98,7 +98,7 @@ This repository presents a comprehensive system for **Vietnamese emotion classif
 
 ## 📎 Demo
 
-🔗 [Demo video using Django] (https://drive.google.com/drive/u/0/folders/1zIfNzn-w4r5RVcDAjDffU0qIgK9dvJ1j)
+🔗 [Demo video using Django](https://drive.google.com/drive/u/0/folders/1zIfNzn-w4r5RVcDAjDffU0qIgK9dvJ1j)
 
 ---
 
